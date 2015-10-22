@@ -1,7 +1,5 @@
 # custom_tomcat_headers
 
-Add custom headers to tomcat via global web.xml.
-
 Quick'n'dirty way to add custom static headers to Apache Tomcat globally
 
 1. Copy .jar in github target/ to lib/ of your Tomcat
