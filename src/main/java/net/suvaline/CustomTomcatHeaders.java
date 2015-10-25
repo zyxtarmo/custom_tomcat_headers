@@ -28,12 +28,23 @@ public class CustomTomcatHeaders implements Filter {
 	
     public void init(FilterConfig config) throws ServletException {
        	
-		String tmpVal;
+		String parVal;
+		
+		System.out.println("Custom Tomcat headers: init");
+		
 		for (Enumeration<String> e = config.getInitParameterNames() ; e.hasMoreElements() ;) {
 			
-			tmpVal = config.getInitParameter(e.nextElement());
-			if ( tmpVal != null ) {
-				xHeaders.put(e.nextElement().toString(), tmpVal);
+			String parName = e.nextElement().toString();
+			try {
+				parVal = config.getInitParameter(parName);
+				
+				if ( parVal != null ) {
+
+					xHeaders.put(parName, parVal);
+				}
+			} catch (Exception w) {
+				w.printStackTrace();
+				System.out.println("getInitParameter error with name: " + parName);
 			}
 		}
 		
@@ -42,11 +53,11 @@ public class CustomTomcatHeaders implements Filter {
 				System.out.println("Add x-header: " + key + " value: " + xHeaders.get(key));
 		}
 
-		tmpVal = null;
+		parVal = null;
     }
     
     public void destroy() {
     		// none
     }
-     
+
 }
